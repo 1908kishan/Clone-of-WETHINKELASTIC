@@ -6,7 +6,6 @@ const tm = gsap.timeline({
         gsap.set("#page2", { position: "absolute" });
         document.body.style.overflow = "auto";
         gsap.set("#page3", { display: "block" });
-        // gsap.set(".footer", { opacity: "1" });
     }
 });
 
@@ -15,19 +14,18 @@ tm.to("#page2", {
     duration: 1.5,
     ease: "power4.inOut",
 })
-// Header Show/Hide on Scroll logic
+
 const header = document.querySelector("header");
 
 ScrollTrigger.create({
     start: "top top",
     end: "max",
     onUpdate: (self) => {
-        // self.direction === 1 matlab Scroll Down
-        // self.direction === -1 matlab Scroll Up
+
         if (self.direction === 1) {
-            header.style.transform = "translateY(-100%)"; // Hide header
+            header.style.transform = "translateY(-100%)"; 
         } else {
-            header.style.transform = "translateY(0)"; // Show header
+            header.style.transform = "translateY(0)"; 
         }
     }
 });
