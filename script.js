@@ -1,62 +1,41 @@
-const tm = gsap.timeline({
-    onStart: () => {
-        document.body.style.overflow = "hidden";
-    },
-    onComplete: () => {
-        gsap.set("#page2", { position: "absolute" });
-        document.body.style.overflow = "auto";
-        gsap.set("#page3", { display: "block" });
-    }
-});
+function textCutting() {
+    let h1 = document.querySelector("h1");
 
-tm.to("#page2", {
-    clipPath: "inset(0% 0 0 0)",
-    duration: 1.5,
-    ease: "power4.inOut",
-})
+    let h1Text = h1.textContent;
 
-const header = document.querySelector("header");
+    let splittedText = h1Text.split("");
 
-ScrollTrigger.create({
-    start: "top top",
-    end: "max",
-    onUpdate: (self) => {
+    let halfTxt = Math.floor(splittedText.length / 2);
 
-        if (self.direction === 1) {
-            header.style.transform = "translateY(-100%)"; 
-        } else {
-            header.style.transform = "translateY(0)"; 
+    let clutter = "";
+
+    splittedText.forEach(function (val, idx) {
+        if (idx < halfTxt) {
+            clutter += `<span class="l">${val}</span>`;
         }
-    }
-});
+        else {
+            clutter += `<span class="r">${val}</span>`;
+        }
+    })
 
-tm.from("nav #logo", {
+    h1.innerHTML = clutter;
+}
+
+textCutting();
+
+
+gsap.from("h1 .l", {
     y: 100,
-    stagger: 0.1,
     opacity: 0,
-}, "-=0.6")
-tm.from("#opt a", {
+    duration: 0.6,
+    delay: 1,
+    stagger: 0.5
+})
+
+gsap.from("h1 .r", {
     y: 100,
-    stagger: 0.1,
     opacity: 0,
+    duration: 0.6,
+    delay: 1,
+    stagger: -0.5
 })
-tm.from("#hello h1", {
-    y: 50,
-    stagger: 0.2,
-    opacity: 0,
-    overflow: "hidden",
-})
-tm.to(".footer", {
-    opacity: 1,
-    duration: 0.3
-}, "-=0.2")
-tm.from(".footer p", {
-    y: 30,
-    overflow: "hidden",
-})
-tm.from(["#b1,#b2,#b3"], {
-    y: 20,
-    stagger: 0.1,
-    opacity: 0,
-    overflow: "hidden",
-}, "-=0.2")
